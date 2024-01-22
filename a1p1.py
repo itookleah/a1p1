@@ -12,5 +12,10 @@ def view():
         print(currentPath)
 
 
+def commands():
+    command = input("Please view(L) or quit(Q): \n")
+
+
 if __name__ == "__main__":
-    view()
+    while commands() != 'q':
+        view()
