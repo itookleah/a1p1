@@ -6,28 +6,51 @@
 
 from pathlib import Path
 
-def view(directory):
-    myPath = Path(directory)
+command = input("View specifed directory([COMMAND] [INPUT] [[-]OPTION] [INPUT]) or quit(Q): \n")
 
-    #print files
+#View (L) or Quit (Q)
+command1 = ''
+#Input
+command2 = ''
+#[-]Option
+command3 = ''
+
+start = 0
+for i, comm in enumerate(command):
+    if comm == ' ':
+        if not command1:
+            command1 = command[start:i]
+        elif not command2:
+            command2 = command[start:i]
+        start = i + 1
+if not command3:
+    command3 = command[start:]
+
+
+def view_files(directory):
+    myPath = Path(directory)
     for currentPath in myPath.iterdir():
         if currentPath.is_file():
             print(currentPath)
     
-    #print directories
+
+def view_directories(directory):
+    myPath = Path(directory)
     for currentPath in myPath.iterdir():
         if currentPath.is_dir():
             print(currentPath)
 
 
-
-
 def commands():
-    command = input("Please view(L) or quit(Q): \n")
-    while command != 'q':
-        view("\ics32")
-        command = input("Please view(L) or quit(Q): \n")
+    if command1 == 'L':
+        if command3 == '-f':
+            view_files(command2)
+        elif command3 == command3:
+            view_files(command2)
+            view_directories(command2)
 
+
+    
 
 if __name__ == "__main__":
     commands()
