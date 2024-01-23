@@ -15,6 +15,7 @@ command2 = ''
 #[-]Option
 command3 = ''
 
+dir = Path(command2)
 
 start = 0
 for i, comm in enumerate(command):
@@ -44,10 +45,20 @@ def view_directories(directory):
             print(currentPath)
 
 
+def recursive_directories():
+    view_files(dir)
+    for item in dir.iterdir():
+        if item.is_dir():
+            print(item)
+            view_files(item)
+
+
 def commands():
     if command1 == 'L':
         if command3 == '-f':
             view_files(command2)
+        elif command3 == '-r':
+            recursive_directories()
         else:
             view_files(command2)
             view_directories(command2)
@@ -56,4 +67,3 @@ def commands():
 
 if __name__ == "__main__":
     commands()
-    #recursive_directories()
