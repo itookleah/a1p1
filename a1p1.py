@@ -6,16 +6,26 @@
 
 from pathlib import Path
 
-def view():
-    myPath = Path("\ics32")
+def view(directory):
+    myPath = Path(directory)
+
+    #print files
     for currentPath in myPath.iterdir():
-        print(currentPath)
+        if currentPath.is_file():
+            print(currentPath)
+    
+    #print directories
+    for currentPath in myPath.iterdir():
+        if currentPath.is_dir():
+            print(currentPath)
+
+
 
 
 def commands():
     command = input("Please view(L) or quit(Q): \n")
     while command != 'q':
-        view()
+        view("\ics32")
         command = input("Please view(L) or quit(Q): \n")
 
 
