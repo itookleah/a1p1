@@ -15,6 +15,7 @@ command2 = ''
 #[-]Option
 command3 = ''
 
+
 start = 0
 for i, comm in enumerate(command):
     if comm == ' ':
@@ -23,7 +24,9 @@ for i, comm in enumerate(command):
         elif not command2:
             command2 = command[start:i]
         start = i + 1
-if not command3:
+if not command2 and start < len(command):
+    command2 = command[start:]
+elif not command3 and start < len(command):
     command3 = command[start:]
 
 
@@ -45,12 +48,12 @@ def commands():
     if command1 == 'L':
         if command3 == '-f':
             view_files(command2)
-        elif command3 == command3:
+        else:
             view_files(command2)
             view_directories(command2)
 
 
-    
 
 if __name__ == "__main__":
     commands()
+    #recursive_directories()
