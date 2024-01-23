@@ -64,6 +64,5 @@ def commands():
             view_directories(command2)
 
 
-
 if __name__ == "__main__":
     commands()
