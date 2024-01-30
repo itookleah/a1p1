@@ -49,7 +49,15 @@ def delete_file(directory):
 
 
 def read_file(directory):
-        pass
+    myPath = Path(directory)
+    myFile = open(directory, 'r')
+    if myPath.stat().st_size == 0:
+        print('EMPTY')
+        commands()
+    else:
+        for i in myFile.readlines():
+            print(i)
+    myFile.close()
 
 
 def commands():
@@ -98,7 +106,7 @@ def commands():
             print("File must be a '.dsu' file. Please try again.")
             commands()
     elif command1 == 'R':
-        pass
+        read_file(command2)
 
 
 if __name__ == "__main__":
