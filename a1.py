@@ -51,17 +51,21 @@ def delete_file(directory):
 def read_file(directory):
     myPath = Path(directory)
     myFile = open(directory, 'r')
-    if myPath.stat().st_size == 0:
-        print('EMPTY')
-        commands()
+    if directory.lower().endswith(".dsu"):
+        if myPath.stat().st_size == 0:
+            print('EMPTY')
+            commands()
+        else:
+            for i in myFile.readlines():
+                print(i)
     else:
-        for i in myFile.readlines():
-            print(i)
+        print("File must end in '.dsu'")
+        commands()
     myFile.close()
 
 
 def commands():
-    command = input("View(L), Delete(D), Create(C), or Read(R) a file([COMMAND] [INPUT] [[-]OPTION] [INPUT]) or quit(Q): \n")
+    command = input()
     command1 = ''
     command2 = ''
     command3 = ''
