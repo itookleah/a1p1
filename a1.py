@@ -58,9 +58,6 @@ def read_file(directory):
         else:
             for i in myFile.readlines():
                 print(i)
-    else:
-        print("File must end in '.dsu'")
-        commands()
     myFile.close()
 
 
@@ -70,8 +67,6 @@ def commands():
     command2 = ''
     command3 = ''
     command4 = ''
-
-    dir = Path(command2)
 
     start = 0
     for i, comm in enumerate(command):
@@ -87,7 +82,7 @@ def commands():
             start = i + 1
     if not command2 and start < len(command):
         command2 = command[start:]
-    elif not command3 and start < len(command):
+    elif not command3 and start < len(command): 
         command3 = command[start:]
     elif not command4 and start < len(command):
         command4 = command[start:]
@@ -110,7 +105,11 @@ def commands():
             print("File must be a '.dsu' file. Please try again.")
             commands()
     elif command1 == 'R':
-        read_file(command2)
+        try:
+            read_file(command2)
+        except FileNotFoundError:
+            print("File must be a '.dsu' file. Please try again.")
+            commands()
 
 
 if __name__ == "__main__":
