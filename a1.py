@@ -6,38 +6,6 @@
 
 from pathlib import Path
 
-command = input("View specifed directory([COMMAND] [INPUT] [[-]OPTION] [INPUT]) or quit(Q): \n")
-
-#View (L) or Quit (Q)
-command1 = ''
-#Directory name
-command2 = ''
-#[-]Option
-command3 = ''
-#input
-command4 = ''
-
-dir = Path(command2)
-
-start = 0
-for i, comm in enumerate(command):
-    if comm == ' ':
-        if not command1:
-            command1 = command[start:i]
-        elif not command2:
-            command2 = command[start:i]
-        elif not command3:
-            command3 = command[start:i]
-        else:
-            command4 = command[start:i]
-        start = i + 1
-if not command2 and start < len(command):
-    command2 = command[start:]
-elif not command3 and start < len(command):
-    command3 = command[start:]
-elif not command4 and start < len(command):
-    command4 = command[start:]
-
 def view_files(directory):
     '''Views files in specified directory'''
     myPath = Path(directory)
@@ -64,26 +32,54 @@ def recursive_directories(directory):
             recursive_directories(item)
 
 
-def create_file():
-    new = Path(command2 + command4 + '.dsu')
+def create_file(directory, name):
+    new = Path(directory + name + '.dsu')
     new.touch()
 
 
-def delete_file():
-    deleteFile = command2
+def delete_file(directory):
+    deleteFile = directory
     if deleteFile.lower().endswith(".dsu"):
         path = Path(deleteFile)
         path.unlink()
         print(deleteFile + ' DELETED')
     else:
         print("File must end with '.dsu'. Please try again.")
+        commands()
 
 
-def read_file():
-    pass
+def read_file(directory):
+        pass
 
 
 def commands():
+    command = input("View(L), Delete(D), Create(C), or Read(R) a file([COMMAND] [INPUT] [[-]OPTION] [INPUT]) or quit(Q): \n")
+    command1 = ''
+    command2 = ''
+    command3 = ''
+    command4 = ''
+
+    dir = Path(command2)
+
+    start = 0
+    for i, comm in enumerate(command):
+        if comm == ' ':
+            if not command1:
+                command1 = command[start:i]
+            elif not command2:
+                command2 = command[start:i]
+            elif not command3:
+                command3 = command[start:i]
+            else:
+                command4 = command[start:i]
+            start = i + 1
+    if not command2 and start < len(command):
+        command2 = command[start:]
+    elif not command3 and start < len(command):
+        command3 = command[start:]
+    elif not command4 and start < len(command):
+        command4 = command[start:]
+
     if command1 == 'L':
         if command3 == '-f':
             view_files(command2)
@@ -94,9 +90,13 @@ def commands():
             view_directories(command2)
     elif command1 == 'C':
         if command3 =='-n':
-            create_file()
+            create_file(command2, command4)
     elif command1 == 'D':
-        delete_file()
+        try:
+            delete_file(command2)
+        except FileNotFoundError:
+            print("File must be a '.dsu' file. Please try again.")
+            commands()
     elif command1 == 'R':
         pass
 
