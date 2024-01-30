@@ -77,7 +77,6 @@ def delete_file():
         print(deleteFile + ' DELETED')
     else:
         print("File must end with '.dsu'. Please try again.")
-        delete_file()
 
 
 def read_file():
