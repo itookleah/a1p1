@@ -55,8 +55,9 @@ def view_directories(directory):
 
 
 def recursive_directories(directory):
+    myPath = Path(directory)
     view_files(directory)
-    for item in directory.iterdir():
+    for item in myPath.iterdir():
         if item.is_dir():
             print(item)
             view_files(item)
@@ -68,8 +69,20 @@ def create_file():
     new.touch()
 
 
-def delete_file(directory):
+def delete_file():
+    deleteFile = command2
+    if deleteFile.lower().endswith(".dsu"):
+        path = Path(deleteFile)
+        path.unlink()
+        print(deleteFile + ' DELETED')
+    else:
+        print("File must end with '.dsu'. Please try again.")
+        delete_file()
+
+
+def read_file():
     pass
+
 
 def commands():
     if command1 == 'L':
@@ -84,7 +97,7 @@ def commands():
         if command3 =='-n':
             create_file()
     elif command1 == 'D':
-        pass
+        delete_file()
     elif command1 == 'R':
         pass
 
